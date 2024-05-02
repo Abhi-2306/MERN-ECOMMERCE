@@ -1,4 +1,7 @@
 const { Order } = require('../model/Order');
+const { Product } = require('../model/Product');
+const { User } = require('../model/User');
+const { sendMail, invoiceTemplate } = require('../services/common');
 
 exports.fetchOrdersByUser = async (req, res) => {
   const { id } = req.user;
@@ -13,8 +16,13 @@ exports.fetchOrdersByUser = async (req, res) => {
 exports.createOrder = async (req, res) => {
   const {id} = req.params;
   const order = new Order(req.body);
+  for(let item of order.items){
+    await Product.findByIdAndUpdate(item.product.id,{$inc:{stock:-1*item.quantity}})
+  }
   try {
     const doc = await order.save();
+    const user=await User.findById(order.user);
+    sendMail({to:user.email, html:invoiceTemplate(order),subject:"Order Received"})
     res.status(201).json(doc);
   } catch (err) {
     res.status(400).json(err);
