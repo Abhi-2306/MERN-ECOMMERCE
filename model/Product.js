@@ -17,7 +17,8 @@ const productSchema = new Schema({
     highlights:{ type : [String] },
     discountPrice: { type: Number},
     deleted: { type : Boolean, default: false},
-})
+},
+{ timestamps: true })
 
 const virtualId=productSchema.virtual('id');
 virtualId.get(function(){

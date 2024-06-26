@@ -7,7 +7,8 @@ const cartSchema = new Schema({
     user:{type:Schema.Types.ObjectId,ref:'User',required:true},
     colors:{ type : [Schema.Types.Mixed] },
     sizes:{ type : [Schema.Types.Mixed]},
-})
+},
+{ timestamps: true })
 
 const virtual=cartSchema.virtual('id');
 virtual.get(function(){

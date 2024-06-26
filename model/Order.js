@@ -16,7 +16,7 @@ const orderSchema = new Schema(
     status: { type: String, default: "pending" },
     selectedAddress: { type: Schema.Types.Mixed, required: true },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 const virtual = orderSchema.virtual("id");
