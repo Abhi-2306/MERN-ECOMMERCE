@@ -16,7 +16,10 @@ virtual.get(function(){
 cartSchema.set('toJSON',{
     virtuals:true,
     versionKey:false,
-    transform:function(doc,ret){delete ret._id}
+    transform:function(doc,ret){delete ret._id;
+        ret.createdAt = doc.createdAt;
+        ret.updatedAt = doc.updatedAt;
+    }
 })
 
 exports.Cart=mongoose.model('Cart',cartSchema)

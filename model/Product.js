@@ -26,7 +26,10 @@ virtualId.get(function(){
 productSchema.set('toJSON',{
     virtuals:true,
     versionKey:false,
-    transform:function(doc,ret){delete ret._id}
+    transform:function(doc,ret){delete ret._id;
+        ret.createdAt = doc.createdAt;
+        ret.updatedAt = doc.updatedAt;
+    }
 })
 
 exports.Product=mongoose.model('Product',productSchema)

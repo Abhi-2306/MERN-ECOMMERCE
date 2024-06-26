@@ -15,6 +15,8 @@ brandSchema.set("toJSON", {
   versionKey: false,
   transform: function (doc, ret) {
     delete ret._id;
+    ret.createdAt = doc.createdAt;
+    ret.updatedAt = doc.updatedAt;
   },
 });
 

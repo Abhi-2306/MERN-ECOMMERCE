@@ -12,7 +12,7 @@ const userSchema = new Schema(
     salt: Buffer,
     resetPasswordToken: { type: String, default: "" },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 const virtual = userSchema.virtual("id");
@@ -24,6 +24,8 @@ userSchema.set("toJSON", {
   versionKey: false,
   transform: function (doc, ret) {
     delete ret._id;
+    ret.createdAt = doc.createdAt;
+    ret.updatedAt = doc.updatedAt;
   },
 });
 
