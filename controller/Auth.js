@@ -46,7 +46,7 @@ exports.loginUser = async (req, res) => {
 exports.logout = async (req, res) => {
   res
     .cookie("jwt", null, {
-      expires: new Date(0),
+      expires: new Date(Date.now()),
       httpOnly: true,
     })
     .sendStatus(200);
